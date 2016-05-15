@@ -1,4 +1,4 @@
-# go-scr
+# go-scr ![](https://godoc.org/github.com/joshheinrichs/go-scr?status.svg)
 
 go-scr provides a model for communication via state change requests. This would ideally simplify cases where you have a shared state between clients and a server, and you want the server to dictate legal state changes and handle requests in a generalizable way. This also has advantages for minimizing the amount of traffic sent over a connection, as only changes to the state would be sent as opposed sending the entire state, which could contain a large amount of redundant information.
 
