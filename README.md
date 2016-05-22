@@ -19,36 +19,22 @@ Take for example, a simple game of x's and o's. The clients and server may have 
 
 If a client wanted to make a move, they could send a request to the server like so:
 ```json
-{
-	"command": "set",
-	"path": "board.0.1",
-	"value": "o"
-}
+{"command": "set", "path": "board.0.1", "value": "o"}
 ```
 
 The server would then verify that the proposed state change was legal, and then send the following scrs back to each of the clients:
 ```json
-{
-	"command": "set",
-	"path": "board.0.1",
-	"value": "o"
-}
+{"command": "set", "path": "board.0.1", "value": "o"}
 ```
 ```json
-{
-	"command": "set",
-	"path": "turn",
-	"value": "x"
-}
+{"command": "set", "path": "turn", "value": "x"}
 ```
 
-Handling these paths can be somewhat annoying, so a routing library, `scrr`, has been included, which matches a request's operation and path to a handler function.
-
-In the example given above, the following router could be constructed for the server:
+Handling these paths can be somewhat annoying, so a routing library, `scrr`, has been included, which matches a request's operation and path to a handler function. In the example given above, the following router could be constructed for the server:
 ```go
-	router := scrr.NewRouter(
-		scrr.NewRoute(scr.CmdSet, "board.#x.#y", moveHandler),
-	)
+router := scrr.NewRouter(
+	scrr.NewRoute(scr.CmdSet, "board.#x.#y", moveHandler),
+)
 ```
 
 The values of `x` and `y` are dynamically set and passed into the handler so that paths can be handled in a generalizable way.
